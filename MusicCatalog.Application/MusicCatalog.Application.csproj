@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Artists\" />
+      <Folder Include="MusicCategories\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MusicCatalog.Domain\MusicCatalog.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
