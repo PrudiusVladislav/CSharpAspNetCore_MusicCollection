@@ -1,0 +1,36 @@
+@page "{id:int}"
+@model MusicCatalog.RazorPagesView.Pages.Songs.UpdateSong
+
+@{
+    ViewData["Title"] = "Update song";
+}
+
+<div class="text-center">
+    <form method="post">
+        <p>
+            <input type="text" placeholder="Title..." name="Title" value="@Model.Song.Title" />
+        </p>
+
+        <p>
+            @* <input type="number" placeholder="Duration (in seconds)..." name="Duration" value="@Model.Song.Duration" /> *@
+            <input name="Duration" id="duration-input" type="text" required pattern="[0-5][0-9]:[0-5][0-9]" value="@Model.Song.GetFormattedDuration()" placeholder="Duration (mm:ss)..." maxlength="5" onchange="validateDurationInput()">
+        </p>
+        <div id="validation-result" class="text-danger"></div>
+        <p>
+            <input type="date" name="ReleaseDate" value="@Model.Song.ReleaseDate.ToString("yyyy-MM-dd")" />
+        </p>
+
+        <p>
+            <select asp-items="@Model.Genres" asp-for="GenreId">
+            </select>
+        </p>
+
+        <p>
+            <select asp-items="@Model.Artists" asp-for="ArtistIds" multiple="multiple"></select>
+        </p>
+
+        <input type="submit" value="Update" />
+    </form>
+</div>
+
+<script src="~/js/durationInputValidation.js"></script>

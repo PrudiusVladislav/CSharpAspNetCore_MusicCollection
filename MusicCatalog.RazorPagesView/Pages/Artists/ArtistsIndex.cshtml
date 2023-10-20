@@ -1,0 +1,87 @@
+
+@page
+@model MusicCatalog.RazorPagesView.Pages.Artists.ArtistsIndex
+
+@{
+    ViewData["Title"] = "Artists";
+}
+
+<style>
+    .page-container {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .artists-page .page-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .artists-page .create-link {
+        display: block;
+        text-align: center;
+        width: 35%; 
+        margin: 0 auto 20px;
+    }
+
+    .artists-page table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .artists-page th, .artists-page td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .artists-page th {
+        background-color: #f2f2f2;
+    }
+
+    .artists-page a, .artists-page button {
+        padding: 5px 10px;
+        text-decoration: none;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .artists-page a:hover, .artists-page button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="text-center artists-page page-container">
+    <h1 class="artists-page page-title">Artists</h1>
+    <a asp-page="./CreateArtist" class="artists-page create-link">Create</a>
+    <form method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            @foreach (var artist in Model.Artists)
+            {
+                <tr>
+                    <td>@artist.FirstName</td>
+                    <td>@artist.LastName</td>
+                    <td>@artist.DateOfBirth.ToShortDateString()</td>
+                    <td>
+                        <a asp-page="./UpdateArtist" asp-route-id="@artist.Id">Update</a>
+                        <button type="submit" asp-page-handler="delete" asp-route-id="@artist.Id">Delete</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+</div>

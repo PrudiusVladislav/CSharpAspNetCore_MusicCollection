@@ -33,4 +33,8 @@ public class Song : Model
         return $"{Title} ({(Duration / 60):D2}:{Duration % 60})";
     }
 
+    public string GetFormattedDuration()
+    {
+        return $"{Duration / 60:D2}:{Duration % 60:D2}";
+    }
 }

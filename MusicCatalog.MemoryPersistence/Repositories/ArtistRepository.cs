@@ -3,7 +3,7 @@ using MusicCatalog.Domain.Models;
 
 namespace MusicCatalog.MemoryPersistence.Repositories;
 
-public sealed class ArtistRepository : CrudRepository<Artist>, IArtisRepository
+public sealed class ArtistRepository : CrudRepository<Artist>, IArtistRepository
 {
     public Task<IReadOnlyCollection<Artist>> GetBySongAsync(int songId, CancellationToken cancellationToken)
     {

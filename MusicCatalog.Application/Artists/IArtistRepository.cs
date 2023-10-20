@@ -3,7 +3,7 @@ using MusicCatalog.Domain.Models;
 
 namespace MusicCatalog.Application.Artists;
 
-public interface IArtisRepository : ICrudRepository<Artist>
+public interface IArtistRepository : ICrudRepository<Artist>
 {
     Task<IReadOnlyCollection<Artist>> GetBySongAsync(int songId, CancellationToken cancellationToken);
 }

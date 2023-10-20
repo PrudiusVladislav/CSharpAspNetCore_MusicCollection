@@ -1,0 +1,24 @@
+@page "{id:int}"
+@model MusicCatalog.RazorPagesView.Pages.Artists.UpdateArtist
+
+@{
+    ViewData["Title"] = "Update artist";
+}
+
+<div class="text-center">
+    <form method="post">
+        <p>
+            <input type="text" placeholder="Enter first name:" name="FirstName" value="@Model.Artist.FirstName" />
+        </p>
+
+        <p>
+            <input type="text" placeholder="Enter last name:" name="LastName" value="@Model.Artist.LastName" />
+        </p>
+
+        <p>
+            <input type="date" name="DateOfBirth" value="@Model.Artist.DateOfBirth.ToString("yyyy-MM-dd")" />
+        </p>
+
+        <input type="submit" value="Update" />
+    </form>
+</div>

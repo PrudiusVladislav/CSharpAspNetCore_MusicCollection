@@ -1,0 +1,72 @@
+
+@page
+@model MusicCatalog.RazorPagesView.Pages.Genres.GenresIndex
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<style>
+     .page-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .page-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .create-link {
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .genres-page ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .genres-page ul li {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .genres-page ul li a,
+    .genres-page ul li button {
+        padding: 5px 10px;
+        text-decoration: none;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .genres-page ul li a:hover,
+    .genres-page ul li button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="text-center genres-page page-container">
+    <form method="post">
+        <h1 class="page-title">Music Genres</h1>
+        <a asp-page="./CreateGenre" class="create-link">Create</a>
+        <ul>
+            @foreach (var genre in Model.Genres)
+            {
+                <li>
+                    @genre.Name
+                    <div>
+                        <a asp-page="./UpdateGenre" asp-route-id="@genre.Id">Update</a>
+                        <button type="submit" asp-page-handler="delete" asp-route-id="@genre.Id">Delete</button>
+                    </div>
+                </li>
+            }
+        </ul>
+    </form>
+</div>

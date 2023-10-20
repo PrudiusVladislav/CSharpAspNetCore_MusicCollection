@@ -5,9 +5,9 @@ namespace MusicCatalog.Application.Artists;
 
 public sealed class ArtistService : CrudService<Artist>, IArtistService
 {
-    private readonly IArtisRepository _artistRepository;
+    private readonly IArtistRepository _artistRepository;
 
-    public ArtistService(IArtisRepository artistRepository) : base(artistRepository)
+    public ArtistService(IArtistRepository artistRepository) : base(artistRepository)
     {
         _artistRepository = artistRepository;
     }

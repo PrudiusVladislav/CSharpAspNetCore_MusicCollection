@@ -1,0 +1,15 @@
+@page "{id:int}"
+@model MusicCatalog.RazorPagesView.Pages.Genres.UpdateGenre
+
+@{
+    ViewData["Title"] = "Update Genre";
+}
+
+<div class="text-center">
+    <form method="post" asp-page="/UpdateGenre">
+        <p>
+            <input type="text" placeholder="Genre name" name="Name" value="@Model.Genre.Name" />
+        </p>
+        <input type="submit" value="Update" />
+    </form>
+</div>

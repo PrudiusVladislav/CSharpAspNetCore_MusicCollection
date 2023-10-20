@@ -1,0 +1,33 @@
+@page
+@model MusicCatalog.RazorPagesView.Pages.Songs.CreateSong
+
+@{
+    ViewData["Title"] = "Create song";
+}
+
+<div class="text-center">
+    <form method="post">
+        <p>
+            <input type="text" placeholder="Title..." name="Title" />
+        </p>
+
+        <p>
+            <input type="number" placeholder="Duration (in seconds)..." name="Duration" />
+        </p>
+
+        <p>
+            <input type="date" name="ReleaseDate" />
+        </p>
+
+        <p>
+            <select asp-items="@Model.Genres" asp-for="GenreId">
+            </select>
+        </p>
+
+        <p>
+            <select asp-items="@Model.Artists" asp-for="ArtistIds" multiple="multiple"></select>
+        </p>
+
+        <input type="submit" value="Create" />
+    </form>
+</div>
