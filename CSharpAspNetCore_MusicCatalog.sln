@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.Domain", "Musi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.Application", "MusicCatalog.Application\MusicCatalog.Application.csproj", "{272F063C-9F2C-4730-963E-B95166EEF264}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.MemoryPersistence", "MusicCatalog.MemoryPersistence\MusicCatalog.MemoryPersistence.csproj", "{9E93E9B4-9719-4CA5-9C30-6D7B556D9B35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{272F063C-9F2C-4730-963E-B95166EEF264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{272F063C-9F2C-4730-963E-B95166EEF264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{272F063C-9F2C-4730-963E-B95166EEF264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E93E9B4-9719-4CA5-9C30-6D7B556D9B35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E93E9B4-9719-4CA5-9C30-6D7B556D9B35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E93E9B4-9719-4CA5-9C30-6D7B556D9B35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E93E9B4-9719-4CA5-9C30-6D7B556D9B35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

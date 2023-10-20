@@ -5,7 +5,7 @@ public class Song : Model
     public required string Title { get; set; }
     //duration in seconds
     public int? Duration { get; set; }
-    public int GenreId { get; set; }
+    public int? GenreId { get; set; }
     public MusicGenre? Genre { get; set; }
     public DateTime ReleaseDate { get; set; }
     public ICollection<Artist>? Artists { get; set; } = new List<Artist>();

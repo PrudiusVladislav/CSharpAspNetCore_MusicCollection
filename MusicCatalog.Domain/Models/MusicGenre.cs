@@ -2,11 +2,11 @@ namespace MusicCatalog.Domain.Models;
 
 public class MusicGenre: Model
 {
-    public required string CategoryName { get; set; }
+    public required string Name { get; set; }
     public ICollection<Song>? Songs { get; set; } = new List<Song>();
     public override bool IsMatch(string searchTerm)
     {
-        return CategoryName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+        return Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                Songs?.Any(song => song.IsMatch(searchTerm)) is true;
     }
 
@@ -14,14 +14,14 @@ public class MusicGenre: Model
     {
         return sortColumn switch
         {
-            nameof(CategoryName) => CategoryName,
+            nameof(Name) => Name,
             _ => Id
         };
     }
 
     public override string ToString()
     {
-        return CategoryName;
+        return Name;
     }
 
 }
