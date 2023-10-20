@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Artists\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\MusicCatalog.Domain\MusicCatalog.Domain.csproj" />
     </ItemGroup>
 
