@@ -19,7 +19,7 @@ public class SongService: ISongService
 
     public async Task UpdateAsync(Song song, CancellationToken cancellationToken)
     {
-        await _songRepository.UpateAsync(song, cancellationToken);
+        await _songRepository.UpdateAsync(song, cancellationToken);
     }
 
     public async Task DeleteAsync(int id, CancellationToken cancellationToken)
@@ -32,17 +32,17 @@ public class SongService: ISongService
         return await _songRepository.GetAsync(id, cancellationToken);
     }
 
-    public async Task<IEnumerable<Song>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<Song>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
     {
         return await _songRepository.GetAllAsync(dto, cancellationToken);
     }
 
-    public async Task<IEnumerable<Song>> GetByCategoryAsync(int categoryId, FilterPaginationDto dto, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<Song>> GetByCategoryAsync(int categoryId, FilterPaginationDto dto, CancellationToken cancellationToken)
     {
         return await _songRepository.GetByCategoryAsync(categoryId, dto, cancellationToken);
     }
 
-    public async Task<IEnumerable<Song>> GetByArtistAsync(int artistId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<Song>> GetByArtistAsync(int artistId, CancellationToken cancellationToken)
     {
         return await _songRepository.GetByArtistAsync(artistId, cancellationToken);
     }

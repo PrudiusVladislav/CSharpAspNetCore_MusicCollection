@@ -13,11 +13,11 @@ public interface ISongService
         CancellationToken cancellationToken);
     Task<Song> GetAsync(int id,
         CancellationToken cancellationToken);
-    Task<IEnumerable<Song>> GetAllAsync(FilterPaginationDto dto,
+    Task<IReadOnlyCollection<Song>> GetAllAsync(FilterPaginationDto dto,
         CancellationToken cancellationToken);
-    Task<IEnumerable<Song>> GetByCategoryAsync(int categoryId, 
+    Task<IReadOnlyCollection<Song>> GetByCategoryAsync(int categoryId, 
         FilterPaginationDto dto,
         CancellationToken cancellationToken);
-    Task<IEnumerable<Song>> GetByArtistAsync(int artistId,
+    Task<IReadOnlyCollection<Song>> GetByArtistAsync(int artistId,
         CancellationToken cancellationToken);
 }
