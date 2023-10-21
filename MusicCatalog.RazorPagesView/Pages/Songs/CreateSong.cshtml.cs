@@ -38,11 +38,13 @@ public class CreateSong : PageModel
         Artists = artists.Select(a => new SelectListItem(a.ToString(), a.Id.ToString())).ToList();
     }
     
-    public async Task<IActionResult> OnPostAsync(string title, int duration, DateTime releaseDate, CancellationToken cancellationToken)
+    public async Task<IActionResult> OnPostAsync(string title, string duration, DateTime releaseDate, CancellationToken cancellationToken)
     {
         var genre = GenreId <= 0 ? null : await _genreService.GetAsync(GenreId, cancellationToken);
 
-        var song = new Song() { Title = title, Duration = duration, ReleaseDate = releaseDate, GenreId = GenreId, Genre = genre };
+        var song = new Song() { Title = title,
+            Duration = (int.Parse(duration[..duration.IndexOf(':')]) * 60) + int.Parse(duration[(duration.IndexOf(':') + 1)..]),
+            ReleaseDate = releaseDate, GenreId = GenreId, Genre = genre };
 
         var sourceArtists = await _artistService.GetAllAsync(new Domain.FilterPaginationDto(string.Empty), cancellationToken);
         song.Artists = sourceArtists.Where(a => ArtistIds.Contains(a.Id)).ToList();

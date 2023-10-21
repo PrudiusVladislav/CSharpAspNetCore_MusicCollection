@@ -1,3 +1,4 @@
+
 @page "{id:int}"
 @model MusicCatalog.RazorPagesView.Pages.Songs.UpdateSong
 
@@ -5,31 +6,37 @@
     ViewData["Title"] = "Update song";
 }
 
-<div class="text-center">
+<div class="container">
+    <h1 class="text-center">Update Song</h1>
     <form method="post">
-        <p>
-            <input type="text" placeholder="Title..." name="Title" value="@Model.Song.Title" />
-        </p>
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Song.Title" placeholder="Title..." />
+        </div>
 
-        <p>
-            @* <input type="number" placeholder="Duration (in seconds)..." name="Duration" value="@Model.Song.Duration" /> *@
-            <input name="Duration" id="duration-input" type="text" required pattern="[0-5][0-9]:[0-5][0-9]" value="@Model.Song.GetFormattedDuration()" placeholder="Duration (mm:ss)..." maxlength="5" onchange="validateDurationInput()">
-        </p>
-        <div id="validation-result" class="text-danger"></div>
-        <p>
-            <input type="date" name="ReleaseDate" value="@Model.Song.ReleaseDate.ToString("yyyy-MM-dd")" />
-        </p>
+        <div class="form-group">
+            <label for="Duration">Duration (mm:ss)</label>
+            <input name="Duration" id="duration-input" class="form-control" type="text" required pattern="[0-5][0-9]:[0-5][0-9]" value="@Model.Song.GetFormattedDuration()" placeholder="Duration (mm:ss)..." maxlength="5" onchange="validateDurationInput()" />
+            <div id="validation-result" class="text-danger"></div>
+        </div>
 
-        <p>
-            <select asp-items="@Model.Genres" asp-for="GenreId">
+        <div class="form-group">
+            <label for="ReleaseDate">Release Date</label>
+            <input type="date" class="form-control" id="ReleaseDate" name="ReleaseDate" value="@Model.Song.ReleaseDate.ToString("yyyy-MM-dd")" />
+        </div>
+
+        <div class="form-group">
+            <label for="GenreId">Genre</label>
+            <select class="form-control" asp-items="@Model.Genres" asp-for="GenreId">
             </select>
-        </p>
+        </div>
 
-        <p>
-            <select asp-items="@Model.Artists" asp-for="ArtistIds" multiple="multiple"></select>
-        </p>
+        <div class="form-group">
+            <label for="ArtistIds">Artists</label>
+            <select class="form-control" asp-items="@Model.Artists" asp-for="ArtistIds" multiple="multiple"></select>
+        </div>
 
-        <input type="submit" value="Update" />
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
 

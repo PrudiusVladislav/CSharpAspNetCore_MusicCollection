@@ -51,6 +51,10 @@
         cursor: pointer;
         border-radius: 4px;
     }
+    
+    .artists-page .btn-delete{
+        background-color: #dc3545;
+    }
 
     .artists-page a:hover, .artists-page button:hover {
         background-color: #0056b3;
@@ -78,7 +82,7 @@
                     <td>@artist.DateOfBirth.ToShortDateString()</td>
                     <td>
                         <a asp-page="./UpdateArtist" asp-route-id="@artist.Id">Update</a>
-                        <button type="submit" asp-page-handler="delete" asp-route-id="@artist.Id">Delete</button>
+                        <button type="submit" asp-page-handler="delete" asp-route-id="@artist.Id" class="btn-delete">Delete</button>
                     </td>
                 </tr>
             }

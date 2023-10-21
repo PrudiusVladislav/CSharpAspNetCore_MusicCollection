@@ -5,20 +5,24 @@
     ViewData["Title"] = "Create artist";
 }
 
-<div class="text-center">
+<div class="container">
+    <h1 class="text-center">Create Artist</h1>
     <form method="post">
-        <p>
-            <input type="text" placeholder="Enter first name: " name="FirstName" />
-        </p>
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter first name:" />
+        </div>
 
-        <p>
-            <input type="text" placeholder="Enter last name:" name="LastName" />
-        </p>
-        
-        <p>
-            <input type="datetime-local" name="DateOfBirth" />
-        </p>
+        <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter last name:" />
+        </div>
 
-        <input type="submit" value="Create" />
+        <div class="form-group">
+            <label for="DateOfBirth">Date of Birth</label>
+            <input type="datetime-local" class="form-control" id="DateOfBirth" name="DateOfBirth" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>

@@ -1,3 +1,4 @@
+
 @page "{id:int}"
 @model MusicCatalog.RazorPagesView.Pages.Artists.UpdateArtist
 
@@ -5,20 +6,25 @@
     ViewData["Title"] = "Update artist";
 }
 
-<div class="text-center">
+<div class="container">
+    <h1 class="text-center">Update Artist</h1>
     <form method="post">
-        <p>
-            <input type="text" placeholder="Enter first name:" name="FirstName" value="@Model.Artist.FirstName" />
-        </p>
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.Artist.FirstName" placeholder="Enter first name:" />
+        </div>
 
-        <p>
-            <input type="text" placeholder="Enter last name:" name="LastName" value="@Model.Artist.LastName" />
-        </p>
+        <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input type="text" class="form-control" id="LastName" name="LastName" value="@Model.Artist.LastName" placeholder="Enter last name:" />
+        </div>
 
-        <p>
-            <input type="date" name="DateOfBirth" value="@Model.Artist.DateOfBirth.ToString("yyyy-MM-dd")" />
-        </p>
+        <div class="form-group">
+            <label for="DateOfBirth">Date of Birth</label>
+            <input type="date" class="form-control" id="DateOfBirth" name="DateOfBirth" value="@Model.Artist.DateOfBirth.ToString("yyyy-MM-dd")" />
+        </div>
 
-        <input type="submit" value="Update" />
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
+

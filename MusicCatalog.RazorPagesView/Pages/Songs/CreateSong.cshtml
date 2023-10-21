@@ -1,3 +1,4 @@
+
 @page
 @model MusicCatalog.RazorPagesView.Pages.Songs.CreateSong
 
@@ -5,29 +6,37 @@
     ViewData["Title"] = "Create song";
 }
 
-<div class="text-center">
+<div class="container">
+    <h1 class="text-center">Create Song</h1>
     <form method="post">
-        <p>
-            <input type="text" placeholder="Title..." name="Title" />
-        </p>
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input type="text" class="form-control" id="Title" name="Title" placeholder="Title..." />
+        </div>
 
-        <p>
-            <input type="number" placeholder="Duration (in seconds)..." name="Duration" />
-        </p>
+        <div class="form-group">
+            <label for="Duration">Duration (mm:ss)</label>
+            <input name="Duration" id="duration-input" class="form-control" type="text" required pattern="[0-5][0-9]:[0-5][0-9]" placeholder="Duration (mm:ss)..." maxlength="5" onchange="validateDurationInput()" />
+            <div id="validation-result" class="text-danger"></div>
+        </div>
 
-        <p>
-            <input type="date" name="ReleaseDate" />
-        </p>
+        <div class="form-group">
+            <label for="ReleaseDate">Release Date</label>
+            <input type="date" class="form-control" id="ReleaseDate" name="ReleaseDate" />
+        </div>
 
-        <p>
-            <select asp-items="@Model.Genres" asp-for="GenreId">
+        <div class="form-group">
+            <label for="GenreId">Genre</label>
+            <select class="form-control" asp-items="@Model.Genres" asp-for="GenreId">
             </select>
-        </p>
+        </div>
 
-        <p>
-            <select asp-items="@Model.Artists" asp-for="ArtistIds" multiple="multiple"></select>
-        </p>
+        <div class="form-group">
+            <label for="ArtistIds">Artists</label>
+            <select class="form-control" asp-items="@Model.Artists" asp-for="ArtistIds" multiple="multiple"></select>
+        </div>
 
-        <input type="submit" value="Create" />
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
+<script src="~/js/durationInputValidation.js"></script>

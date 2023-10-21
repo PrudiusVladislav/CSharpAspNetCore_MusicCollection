@@ -6,7 +6,13 @@ using MusicCatalog.MemoryPersistence.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    
+    options.Conventions.AddPageRoute("/Songs/SongsIndex", "/Songs");
+    options.Conventions.AddPageRoute("/Genres/GenresIndex", "/Genres");
+    options.Conventions.AddPageRoute("/Artists/ArtistsIndex", "/Artists");
+});
 
 builder.Services.AddTransient<IGenreRepository, GenreRepository>();
 builder.Services.AddTransient<IArtistRepository, ArtistRepository>();

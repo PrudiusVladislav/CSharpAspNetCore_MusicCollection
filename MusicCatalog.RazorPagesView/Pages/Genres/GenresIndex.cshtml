@@ -16,12 +16,17 @@
         font-size: 24px;
         margin-bottom: 20px;
     }
-    .create-link {
-        display: block;
-        text-align: center;
-        margin-bottom: 20px;
+    .page-container .create-link {
+        padding: 5px 100px;
+        text-decoration: none;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
     }
     .genres-page ul {
+        margin-top: 25px;
         list-style: none;
         padding: 0;
     }
@@ -46,6 +51,10 @@
         border-radius: 4px;
     }
 
+    .genres-page ul li .btn-delete{
+        background-color: #dc3545;
+    }
+
     .genres-page ul li a:hover,
     .genres-page ul li button:hover {
         background-color: #0056b3;
@@ -63,7 +72,7 @@
                     @genre.Name
                     <div>
                         <a asp-page="./UpdateGenre" asp-route-id="@genre.Id">Update</a>
-                        <button type="submit" asp-page-handler="delete" asp-route-id="@genre.Id">Delete</button>
+                        <button type="submit" asp-page-handler="delete" asp-route-id="@genre.Id" class="btn-delete">Delete</button>
                     </div>
                 </li>
             }
