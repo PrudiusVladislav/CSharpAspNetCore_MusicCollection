@@ -6,76 +6,47 @@
     ViewData["Title"] = "Genres";
 }
 
-<style>
-     .page-container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    .page-title {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-    .page-container .create-link {
-        padding: 5px 100px;
-        text-decoration: none;
-        background-color: #007BFF;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-    .genres-page ul {
-        margin-top: 25px;
-        list-style: none;
-        padding: 0;
-    }
-
-    .genres-page ul li {
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .genres-page ul li a,
-    .genres-page ul li button {
-        padding: 5px 10px;
-        text-decoration: none;
-        background-color: #007BFF;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    .genres-page ul li .btn-delete{
-        background-color: #dc3545;
-    }
-
-    .genres-page ul li a:hover,
-    .genres-page ul li button:hover {
-        background-color: #0056b3;
-    }
-</style>
-
 <div class="text-center genres-page page-container">
     <form method="post">
         <h1 class="page-title">Music Genres</h1>
-        <a asp-page="./CreateGenre" class="create-link">Create</a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGenreModal">Create Genre</button>
         <ul>
             @foreach (var genre in Model.Genres)
             {
                 <li>
                     @genre.Name
                     <div>
-                        <a asp-page="./UpdateGenre" asp-route-id="@genre.Id">Update</a>
+                        @* <a asp-page="./UpdateGenre" asp-route-id="@genre.Id">Update</a> *@
+                        <a asp-page="./UpdateGenre" asp-route-id="@genre.Id">Update Genre</a>
                         <button type="submit" asp-page-handler="delete" asp-route-id="@genre.Id" class="btn-delete">Delete</button>
                     </div>
                 </li>
             }
         </ul>
     </form>
+</div>
+
+<div class="modal fade" id="createGenreModal" tabindex="-1" role="dialog" aria-labelledby="createGenreModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createGenreModalLabel">Create Genre</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-page="./CreateGenre" id="createGenreForm">
+                    <div class="form-group">
+                        <label for="GenreName">Genre Name</label>
+                        <input type="text" class="form-control" id="GenreName" name="Name" placeholder="Genre name"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="createGenreForm" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
 </div>

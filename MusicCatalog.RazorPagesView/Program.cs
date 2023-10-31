@@ -12,6 +12,11 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AddPageRoute("/Songs/SongsIndex", "/Songs");
     options.Conventions.AddPageRoute("/Genres/GenresIndex", "/Genres");
     options.Conventions.AddPageRoute("/Artists/ArtistsIndex", "/Artists");
+    options.Conventions.AddPageRoute("/Songs/UpdateSong", "/Songs/Update");
+    options.Conventions.AddPageRoute("/Songs/CreateSong", "/Songs/Create");
+    options.Conventions.AddPageRoute("/Genres/UpdateGenre", "/Genres/Update");
+    options.Conventions.AddPageRoute("/Artists/UpdateArtist", "/Artists/Update");
+    options.Conventions.AddPageRoute("/Artists/CreateArtist", "/Artists/Create");
 });
 
 builder.Services.AddTransient<IGenreRepository, GenreRepository>();

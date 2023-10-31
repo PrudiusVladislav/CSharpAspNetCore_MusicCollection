@@ -5,11 +5,14 @@
     ViewData["Title"] = "Update Genre";
 }
 
-<div class="text-center">
+
+<div class="text-center update-genre-page page-container">
+    <h1 class="page-title">Update Genre</h1>
     <form method="post" asp-page="/UpdateGenre">
-        <p>
-            <input type="text" placeholder="Genre name" name="Name" value="@Model.Genre.Name" />
-        </p>
-        <input type="submit" value="Update" />
+        <div class="form-group">
+            <label for="UpdateGenreName">Genre Name</label>
+            <input type="text" class="form-control" id="UpdateGenreName" name="Name" placeholder="Genre name" value="@Model.Genre.Name" />
+        </div>
+        <input type="submit" class="btn btn-update" value="Update"/>
     </form>
 </div>
