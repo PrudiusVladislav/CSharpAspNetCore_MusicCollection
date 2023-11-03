@@ -1,7 +1,7 @@
 namespace MusicCatalog.Domain;
 
 public sealed record FilterPaginationDto (
-    string SearchTerm,
+    string SearchTerm = "",
     int PageNumber = 1,
     int PageSize = 50,
     string SortColumn = "Id",
