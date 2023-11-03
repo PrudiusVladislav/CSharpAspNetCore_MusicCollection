@@ -20,3 +20,208 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.page-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.page-container .create-link {
+  padding: 5px 100px;
+  text-decoration: none;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.genres-page ul {
+  margin-top: 25px;
+  list-style: none;
+  padding: 0;
+}
+
+.genres-page ul li {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.genres-page ul li a,
+.genres-page ul li button {
+  padding: 5px 10px;
+  text-decoration: none;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.genres-page ul li .btn-delete{
+  background-color: #dc3545;
+}
+
+.genres-page ul li a:hover,
+.genres-page ul li button:hover {
+  background-color: #0056b3;
+}
+
+.update-genre-page .page-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.update-genre-page .page-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.update-genre-page .form-group {
+  margin-bottom: 20px;
+}
+
+.update-genre-page .form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.update-genre-page .btn-update {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.update-genre-page .btn-update:hover {
+  background-color: #0056b3;
+}
+
+.artists-page .page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.artists-page .page-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.artists-page .create-link {
+  display: block;
+  text-align: center;
+  width: 35%;
+  margin: 0 auto 20px;
+}
+
+.artists-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.artists-page th, .artists-page td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.artists-page th {
+  background-color: #f2f2f2;
+}
+
+.artists-page a, .artists-page button {
+  padding: 5px 10px;
+  text-decoration: none;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.artists-page .btn-delete{
+  background-color: #dc3545;
+}
+
+.artists-page a:hover, .artists-page button:hover {
+  background-color: #0056b3;
+}
+
+.songs-page .page-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.songs-page .page-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.songs-page table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.songs-page th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.songs-page th {
+  background-color: #f5f5f5;
+}
+.songs-page tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.songs-page .page-container .create-button {
+  padding: 5px 100px;
+  text-decoration: none;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.songs-page .action-buttons a,
+.songs-page .action-buttons button {
+  padding: 5px 10px;
+  margin-right: 10px;
+  text-decoration: none;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.songs-page .action-buttons a:hover,
+.songs-page .action-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.songs-page .action-buttons .btn-delete{
+  background-color: #dc3545;
+}
+
+.songs-page  .duration-cell {
+  font-weight: bold;
+}

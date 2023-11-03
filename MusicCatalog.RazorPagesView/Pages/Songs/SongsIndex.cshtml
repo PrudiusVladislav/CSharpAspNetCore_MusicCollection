@@ -6,101 +6,39 @@
     ViewData["Title"] = "Songs";
 }
 
-<style>
-    .page-container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    .page-title {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-    table {
-        margin-top: 30px;
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-       padding: 10px;
-       border: 1px solid #ddd;
-       text-align: center;
-    }
-    th {
-        background-color: #f5f5f5;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-     .page-container .create-button {
-       padding: 5px 100px;
-       text-decoration: none;
-       background-color: #007BFF;
-       color: #fff;
-       border: none;
-       cursor: pointer;
-       border-radius: 4px;
-    }
-
-    .action-buttons a,
-    .action-buttons button {
-        padding: 5px 10px;
-        margin-right: 10px;
-        text-decoration: none;
-        background-color: #007BFF;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    .action-buttons a:hover,
-    .action-buttons button:hover {
-        background-color: #0056b3;
-    }
-    
-    .action-buttons .btn-delete{
-        background-color: #dc3545;
-    }
-    
-    .duration-cell {
-        font-weight: bold;
-    }
-    
-</style>
-
-<div class="text-center page-container">
-    <h1 class="page-title">Songs</h1>
-    <a asp-page="./CreateSong" class="create-button">Create</a>
-    <form method="post">
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Duration</th>
-                    <th>Release Date</th>
-                    <th>Genre</th>
-                    <th>Artists</th>
-                    <th colspan="2" class="text-center">Actions</th>
-                </tr>
-            </thead>
-            @foreach (var song in Model.Songs)
-            {
-                <tr>
-                    <td>@song.Title</td>
-                    <td class="duration-cell">@($"{song.Duration / 60:D2}:{song.Duration % 60:D2}")</td>
-                    <td>@song.ReleaseDate.ToShortDateString()</td>
-                    <td>@song.Genre?.Name</td>
-                    <td>@string.Join(", ", song?.Artists ?? Enumerable.Empty<Domain.Models.Artist>())</td>
-                    <td class="action-buttons">
-                        <a asp-page="./UpdateSong" asp-route-id="@song?.Id">Update</a>
-                    </td>
-                    <td class="action-buttons">
-                        <button type="submit" asp-page-handler="delete" asp-route-id="@song?.Id" class="btn-delete">Delete</button>
-                    </td>
-                </tr>
-            }
-        </table>
-    </form>
+<div class="text-center songs-page">
+    <div class="page-container">
+        <h1 class="page-title">Songs</h1>
+            <a asp-page="./CreateSong" class="create-button">Create</a>
+            <form method="post">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Duration</th>
+                        <th>Release Date</th>
+                        <th>Genre</th>
+                        <th>Artists</th>
+                        <th colspan="2" class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    @foreach (var song in Model.Songs)
+                    {
+                        <tr>
+                            <td>@song.Title</td>
+                            <td class="duration-cell">@($"{song.Duration / 60:D2}:{song.Duration % 60:D2}")</td>
+                            <td>@song.ReleaseDate.ToShortDateString()</td>
+                            <td>@song.Genre?.Name</td>
+                            <td>@string.Join(", ", song?.Artists ?? Enumerable.Empty<Domain.Models.Artist>())</td>
+                            <td class="action-buttons">
+                                <a asp-page="./UpdateSong" asp-route-id="@song?.Id">Update</a>
+                            </td>
+                            <td class="action-buttons">
+                                <button type="submit" asp-page-handler="delete" asp-route-id="@song?.Id" class="btn-delete">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </form>
+    </div>
 </div>
