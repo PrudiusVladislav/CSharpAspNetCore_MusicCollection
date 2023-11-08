@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.MemoryPersiste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.RazorPagesView", "MusicCatalog.RazorPagesView\MusicCatalog.RazorPagesView.csproj", "{F049C5A5-417E-4BEC-9FFC-28D9149D3DC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.MVCView", "MusicCatalog.MVCView\MusicCatalog.MVCView.csproj", "{2CC49D4B-DC70-4CBA-90D2-A4DF085F93AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.EfCorePersistence", "MusicCatalog.EfCorePersistence\MusicCatalog.EfCorePersistence.csproj", "{D23BBA0B-8F99-42A0-A405-261C61A4E980}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{F049C5A5-417E-4BEC-9FFC-28D9149D3DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F049C5A5-417E-4BEC-9FFC-28D9149D3DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F049C5A5-417E-4BEC-9FFC-28D9149D3DC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC49D4B-DC70-4CBA-90D2-A4DF085F93AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC49D4B-DC70-4CBA-90D2-A4DF085F93AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC49D4B-DC70-4CBA-90D2-A4DF085F93AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC49D4B-DC70-4CBA-90D2-A4DF085F93AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D23BBA0B-8F99-42A0-A405-261C61A4E980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D23BBA0B-8F99-42A0-A405-261C61A4E980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D23BBA0B-8F99-42A0-A405-261C61A4E980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D23BBA0B-8F99-42A0-A405-261C61A4E980}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
