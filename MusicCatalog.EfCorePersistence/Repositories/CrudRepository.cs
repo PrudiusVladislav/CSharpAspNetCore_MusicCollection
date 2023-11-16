@@ -76,4 +76,8 @@ public abstract class CrudRepository<TModel> : ICrudRepository<TModel> where TMo
     
     protected abstract IQueryable<TModel> Sort(IQueryable<TModel> query, string orderBy, bool isAscending);
 
+    protected virtual IQueryable<TModel> Include(IQueryable<TModel> query)
+    {
+        return query;
+    }
 }

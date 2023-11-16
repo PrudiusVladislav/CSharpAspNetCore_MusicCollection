@@ -48,4 +48,9 @@ public class SongsRepository: CrudRepository<Song>, ISongRepository
         entity.ReleaseDate = model.ReleaseDate;
         entity.GenreId = model.GenreId;
     }
+
+    protected override IQueryable<Song> Include(IQueryable<Song> query)
+    {
+        return query.Include(s => s.Artists);
+    }
 }

@@ -1,0 +1,15 @@
+@model IEnumerable<MusicCatalog.Domain.Models.Song>
+
+<div>
+    @foreach (var song in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@song.Title</h5>
+                <p class="card-text">@song.Genre</p>
+            </div>
+        </div>
+    }
+</div>
+
+

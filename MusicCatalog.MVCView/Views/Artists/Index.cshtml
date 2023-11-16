@@ -1,63 +1,9 @@
-@model MusicCatalog.MVCView.ViewModels.ArtistsViewModel
+@model MusicCatalog.MVCView.ViewModels.Artists.ArtistsViewModel
 
 @{
-    ViewData["Title"] = "Artists";
+    ViewData["Title"] = "Genres";
 }
 
-<div class="text-center artists-page">
-    <div class="page-container">
-        <h1 class="artists-page page-title">Artists</h1>
-        <a class="artists-page create-link" asp-action="Create">Create</a>
-        <div>
-            <label>Sort by</label>
-            <select>
-                <option>First Name</option>
-                <option>Last Name</option>
-                <option>Date of birth</option>
-            </select>
-        </div>
-        <div>
-            <label>Sort order</label>
-            <select>
-                <option>Ascending</option>
-                <option>Descending</option>
-            </select>
-        </div>
-        <div>
-            <label>Page size</label>
-            <input type="number" min="1" max="100" value="10"/>
-        </div>
-        <div>
-            <label>Page number</label>
-            <input type="number" min="1" max="100" value="10"/>
-        </div>
-        <div>
-            <label>Search term</label>
-            <input type="text" value="@Model."/>
-        </div>
-        <table>
-            <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date of Birth</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            @foreach (var artist in Model.Artists)
-            {
-                <tr>
-                    <td>@artist.FirstName</td>
-                    <td>@artist.LastName</td>
-                    <td>@artist.DateOfBirth.ToShortDateString()</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@artist.Id">Update</a>
-                        <a asp-action="Delete" asp-route-id="@artist.Id" class="btn-delete btn-danger">Delete</a>
-                    </td>
-                </tr>
-            }
-        </table>
-       
-    </div>
+<div class="text-center">
+    @await Html.PartialAsync("~/Views/Shared/PaginatedFilteredTable.cshtml", Model)
 </div>
-@* @await Html.PartialAsync("_EditArtistModal", artist) *@

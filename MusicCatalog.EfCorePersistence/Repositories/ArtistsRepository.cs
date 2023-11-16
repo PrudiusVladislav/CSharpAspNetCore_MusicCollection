@@ -43,4 +43,8 @@ public sealed class ArtistsRepository: CrudRepository<Artist>, IArtistRepository
             .ToArrayAsync(cancellationToken);
     }
 
+    protected override IQueryable<Artist> Include(IQueryable<Artist> query)
+    {
+        return query.Include(a => a.Songs);
+    }
 }

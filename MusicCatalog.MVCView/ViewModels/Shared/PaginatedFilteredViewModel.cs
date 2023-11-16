@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MusicCatalog.Domain.Models;
@@ -8,7 +9,8 @@ public abstract class PaginatedFilteredViewModel
 {
     private readonly Type _modelType;
     private readonly ICollection<Model> _models = new List<Model>();
-    
+    private readonly PropertyInfo[] _modelProperties;
+
     public string ControllerName { get; }
     public string ActionName { get; }
     
@@ -24,41 +26,38 @@ public abstract class PaginatedFilteredViewModel
     public int TotalPages => PageSize == 0 ? 0 : (int)Math.Ceiling(Total / (decimal)PageSize);
 
     public string SearchTerm { get; set; } = string.Empty;
+    public IDictionary<int, IDictionary<string, ValueType>> ColumnValues { get; } = new Dictionary<int, IDictionary<string, ValueType>>();
 
-    public abstract IEnumerable<string> Columns { get; }
-    public abstract IEnumerable<SelectListItem> SortColumns { get; }
+    public IEnumerable<string> Columns => _modelProperties.Select(p => p.Name);
     
-    public IEnumerable<SelectListItem> SortDirections { get; } = new[]
-    {
-        new SelectListItem("Ascending", "Ascending"),
-        new SelectListItem("Descending", "Descending", true)
-    };
+    protected virtual IEnumerable<string> IgnoreColumns => new[] { nameof(Model.Id) };
 
     protected PaginatedFilteredViewModel(Type modelType, Type controllerType)
-    {
-        if (!ValidateModelAndControllerType(modelType, controllerType)) return;
-        
-        _modelType = modelType;
-        ControllerName = controllerType.Name.Replace("Controller", string.Empty);
-        ActionName = "Index";
-    }
-
-    private bool ValidateModelAndControllerType(Type modelType, Type controllerType)
     {
         if (!typeof(Model).IsAssignableFrom(modelType))
             throw new ArgumentException($"Type '{modelType}' is not a model.");
         
         if (!typeof(Controller).IsAssignableFrom(controllerType))
             throw new ArgumentException($"Type '{controllerType}' is not a controller.");
-        return true;
+        
+        _modelType = modelType;
+        ControllerName = controllerType.Name.Replace("Controller", string.Empty);
+        ActionName = "Index";
+        
+        _modelProperties = _modelType.GetProperties()
+            .Where(p => p.CanWrite && p.CanRead && !IgnoreColumns.Contains(p.Name))
+            .ToArray();
     }
-    
+
     public void AddModel(Model model)
     {
         if (model.GetType() != _modelType)
-            throw new ArgumentException("Model collection should include only models of the same type.");
+            throw new ArgumentException("Data collection should include only models of the same type.");
         
         _models.Add(model);
+        ColumnValues.Add(model.Id, _modelProperties.ToDictionary(
+            p => p.Name,
+            p => GetColumnValue(model, p)));
     }
     
     public void AddModels(IEnumerable<Model> models)
@@ -67,7 +66,7 @@ public abstract class PaginatedFilteredViewModel
             AddModel(model);
     }
     
-    public IDictionary<string, string> ToDictionaryParameters(
+    public IDictionary<string, string> GetRouteValues(
         string? searchTerm = null,
         string? sortColumn = null,
         string? sorting = null,
@@ -83,8 +82,6 @@ public abstract class PaginatedFilteredViewModel
             { "page", page?.ToString() ?? CurrentPage.ToString() },
         };
     }
-    
-    public abstract string GetColumnValue(Model model, string column);
     
     public static (string, string) GetSortColumnAndDirection(string sorting, string sortColumn)
     {
@@ -103,4 +100,29 @@ public abstract class PaginatedFilteredViewModel
         // Never happened but...
         return ("Id", "Descending");
     }
+    
+    protected virtual ValueType GetColumnValue(Model model, PropertyInfo property)
+    {
+        var value = property.GetValue(model);
+        
+        // getting value from IEnumerable<Data> property
+        var genericArguments = property.PropertyType.GetGenericArguments();
+        Type? enumerableType = null;
+        
+        if (genericArguments.Length == 1)
+            enumerableType = typeof(IEnumerable<>).MakeGenericType(genericArguments);
+        
+        if (enumerableType is not null && enumerableType.IsAssignableFrom(property.PropertyType))
+        {
+            var enumerable = value as IEnumerable<Model> ?? Enumerable.Empty<Model>();
+            return new ValueType(enumerable, "select");
+        }
+
+        return new ValueType(value?.ToString() ?? string.Empty, "text");
+    }
+    
+    public abstract ModalViewModel GetModal(Model model, string column);
+
+    public sealed record ValueType(object Value, string Type);
+
 }

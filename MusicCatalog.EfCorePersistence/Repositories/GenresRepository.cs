@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MusicCatalog.Application.MusicGenres;
 using MusicCatalog.Domain.Models;
 using MusicCatalog.EfCorePersistence.Data;
@@ -29,4 +30,8 @@ public sealed class GenresRepository: CrudRepository<MusicGenre>, IGenreReposito
         };
     }
 
+    protected override IQueryable<MusicGenre> Include(IQueryable<MusicGenre> query)
+    {
+        return query.Include(g => g.Songs);
+    }
 }

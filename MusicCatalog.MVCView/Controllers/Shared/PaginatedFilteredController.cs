@@ -2,12 +2,16 @@ using Microsoft.AspNetCore.Mvc;
 using MusicCatalog.Application.Shared;
 using MusicCatalog.Domain;
 using MusicCatalog.Domain.Models;
+using MusicCatalog.MVCView.Dtos.Shared;
 using MusicCatalog.MVCView.ViewModels;
 using MusicCatalog.MVCView.ViewModels.Shared;
 
 namespace MusicCatalog.MVCView.Controllers.Shared;
 
-public abstract class PaginatedFilteredController<TModel> : Controller where TModel: Model
+public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto, TViewModel> : Controller 
+    where TModel : Model
+    where TPaginatedFilteredDto : PaginatedFilteredDto
+    where TViewModel : PaginatedFilteredViewModel, new()
 {
     private readonly ICrudService<TModel> _crudService;
     
@@ -16,51 +20,34 @@ public abstract class PaginatedFilteredController<TModel> : Controller where TMo
         _crudService = crudService;
     }
     
-    public virtual IActionResult Index(
-        string searchTerm = "", 
-        string sorting = "",
-        string sortColumn = "Id", 
-        int page = 1, 
-        int pageSize = 10)
+    public virtual IActionResult Index(TPaginatedFilteredDto dto)
     {
-        var (sortBy, sortDirection) = PaginatedFilteredViewModel.GetSortColumnAndDirection(sorting, sortColumn);
+        (dto.SortColumn, dto.SortDirection) = PaginatedFilteredViewModel.GetSortColumnAndDirection(dto.Sorting, dto.SortColumn);
         
-        if (page <= 0)
-            page = 1;
-        
-        return RedirectToAction("Filter", new
-        {
-            searchTerm,
-            sortColumn = sortBy,
-            sortDirection,
-            page,
-            pageSize
-        });
+        if (dto.Page <= 0)
+            dto.Page = 1;
+
+        return RedirectToAction("Filter", dto);
     }
-    
-    public virtual async Task<IActionResult> Filter(
-        string searchTerm = "",
-        string sortColumn = "",
-        string sortDirection = "",
-        int page = 1,
-        int pageSize = 10,
+
+    public virtual async Task<IActionResult> Filter(TPaginatedFilteredDto dto,
         CancellationToken cancellationToken = default)
     {
-        var sortOrder = sortDirection.Equals("Descending") ? SortOrder.Desc : SortOrder.Asc;
-        
-        var dto = new FilterPaginationDto(searchTerm, page, pageSize, sortColumn, sortOrder);
-        var models = await _crudService.GetAllAsync(dto, cancellationToken);
-        var viewModel = new GenresViewModel()
+        var sortOrder = dto.SortDirection.Equals("Descending") ? SortOrder.Desc : SortOrder.Asc;
+
+        var domainDto = new FilterPaginationDto(dto.SearchTerm, dto.Page, dto.PageSize, dto.SortColumn, sortOrder);
+        var models = await _crudService.GetAllAsync(domainDto, cancellationToken);
+        var viewModel = new TViewModel()
         {
             Total = models.Total,
-            SortColumn = sortColumn,
-            SortDirection = sortDirection,
-            CurrentPage = page,
-            PageSize = pageSize,
-            SearchTerm = searchTerm
+            SortColumn = dto.SortColumn,
+            SortDirection = dto.SortDirection,
+            CurrentPage = dto.Page,
+            PageSize = dto.PageSize,
+            SearchTerm = dto.SearchTerm
         };
         viewModel.AddModels(models.Models);
         return View("Index", viewModel);
     }
-
+    
 }
