@@ -14,4 +14,19 @@ public sealed class GenresRepository: CrudRepository<MusicGenre>, IGenreReposito
     {
         entity.Name = model.Name;
     }
+    
+    protected override IQueryable<MusicGenre> Filter(IQueryable<MusicGenre> query, string filter)
+    {
+        return query.Where(g => g.Name.Contains(filter));
+    }
+
+    protected override IQueryable<MusicGenre> Sort(IQueryable<MusicGenre> query, string orderBy, bool isAscending)
+    {
+        return orderBy.ToLower() switch
+        {
+            "name" => isAscending ? query.OrderBy(g => g.Name) : query.OrderByDescending(g => g.Name),
+            _ => isAscending ? query.OrderBy(g => g.Id) : query.OrderByDescending(g => g.Id)
+        };
+    }
+
 }

@@ -16,7 +16,9 @@ public class ArtistsController : Controller
     
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
-        return View(await _artistService.GetAllAsync(new FilterPaginationDto(), cancellationToken));
+        var dto = new FilterPaginationDto();
+        var artists = await _artistService.GetAllAsync(dto, cancellationToken);
+        return View();
     }
 
     public IActionResult Create()

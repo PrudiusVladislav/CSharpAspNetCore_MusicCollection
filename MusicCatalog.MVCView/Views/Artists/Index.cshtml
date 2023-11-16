@@ -1,4 +1,4 @@
-@model IReadOnlyCollection<MusicCatalog.Domain.Models.Artist>
+@model MusicCatalog.MVCView.ViewModels.ArtistsViewModel
 
 @{
     ViewData["Title"] = "Artists";
@@ -8,6 +8,33 @@
     <div class="page-container">
         <h1 class="artists-page page-title">Artists</h1>
         <a class="artists-page create-link" asp-action="Create">Create</a>
+        <div>
+            <label>Sort by</label>
+            <select>
+                <option>First Name</option>
+                <option>Last Name</option>
+                <option>Date of birth</option>
+            </select>
+        </div>
+        <div>
+            <label>Sort order</label>
+            <select>
+                <option>Ascending</option>
+                <option>Descending</option>
+            </select>
+        </div>
+        <div>
+            <label>Page size</label>
+            <input type="number" min="1" max="100" value="10"/>
+        </div>
+        <div>
+            <label>Page number</label>
+            <input type="number" min="1" max="100" value="10"/>
+        </div>
+        <div>
+            <label>Search term</label>
+            <input type="text" value="@Model."/>
+        </div>
         <table>
             <thead>
             <tr>
@@ -17,7 +44,7 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            @foreach (var artist in Model)
+            @foreach (var artist in Model.Artists)
             {
                 <tr>
                     <td>@artist.FirstName</td>
@@ -30,5 +57,7 @@
                 </tr>
             }
         </table>
+       
     </div>
 </div>
+@* @await Html.PartialAsync("_EditArtistModal", artist) *@

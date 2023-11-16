@@ -1,0 +1,10 @@
+@model MusicCatalog.MVCView.ViewModels.GenresViewModel
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<div class="text-center">
+    @await Html.PartialAsync("~/Views/Shared/PaginatedFilteredTable.cshtml", Model)
+</div>
+

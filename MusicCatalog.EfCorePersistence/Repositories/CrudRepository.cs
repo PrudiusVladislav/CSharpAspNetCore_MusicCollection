@@ -47,16 +47,33 @@ public abstract class CrudRepository<TModel> : ICrudRepository<TModel> where TMo
         return await DbContext.Set<TModel>().FindAsync(new object?[] { id }, cancellationToken: cancellationToken);
     }
 
-    public async Task<IReadOnlyCollection<TModel>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
+    public async Task<PaginatedCollection<TModel>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
     {
         var skip = (dto.PageNumber - 1) * dto.PageSize;
         var take = dto.PageSize;
 
-        return await DbContext.Set<TModel>()
+        var query = DbContext.Set<TModel>().AsQueryable();
+        
+        if (!string.IsNullOrWhiteSpace(dto.SearchTerm))
+            query = Filter(query, dto.SearchTerm);
+        
+        var totalItems = await query.CountAsync(cancellationToken);
+        
+        var orderBy = string.IsNullOrWhiteSpace(dto.SortColumn) ? "Id" : dto.SortColumn;
+        query = Sort(query, orderBy, dto.SortOrder == SortOrder.Asc);
+        
+        var models = await query
             .Skip(skip)
             .Take(take)
             .ToArrayAsync(cancellationToken);
+        
+        return new PaginatedCollection<TModel>(models, totalItems);
     }
     
     protected abstract void Update(TModel model, TModel entity);
+    
+    protected abstract IQueryable<TModel> Filter(IQueryable<TModel> query, string filter);
+    
+    protected abstract IQueryable<TModel> Sort(IQueryable<TModel> query, string orderBy, bool isAscending);
+
 }
