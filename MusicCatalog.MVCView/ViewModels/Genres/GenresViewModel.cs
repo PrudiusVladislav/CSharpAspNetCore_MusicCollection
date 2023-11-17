@@ -26,6 +26,19 @@ public class GenresViewModel: PaginatedFilteredViewModel
         };
     }
 
+    public override ModalViewModel GetUpdateModal(Model model)
+    {
+        const string header = "Update genre";
+        var genre = (MusicGenre)model;
+        return new GenreUpdateModalViewModel(genre.Id, header, genre);
+    }
+    
+    // public override ModalViewModel GetCreateModal()
+    // {
+    //     const string header = "Update genre";
+    //     return new GenreCreateModalViewModel(genre.Id, header, genre);
+    // }
+    
     public IEnumerable<ModalViewModel> GetModals()
     {
         const string header = "Songs";

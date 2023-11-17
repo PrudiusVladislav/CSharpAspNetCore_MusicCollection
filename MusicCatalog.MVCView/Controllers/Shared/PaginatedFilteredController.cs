@@ -50,4 +50,24 @@ public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto,
         return View("Index", viewModel);
     }
     
+    [HttpPost]
+    public virtual async Task<IActionResult> Create(TModel model, CancellationToken cancellationToken)
+    {
+        await _crudService.CreateAsync(model, cancellationToken);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpPost]
+    public virtual async Task<IActionResult> Edit(TModel model, CancellationToken cancellationToken)
+    {
+        await _crudService.UpdateAsync(model, cancellationToken);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    public virtual async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    {
+        await _crudService.DeleteAsync(id, cancellationToken);
+        return RedirectToAction(nameof(Index));
+    }
+
 }

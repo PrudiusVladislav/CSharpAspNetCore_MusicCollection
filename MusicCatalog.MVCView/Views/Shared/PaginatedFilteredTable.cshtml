@@ -68,7 +68,13 @@
                             break;
                     }
                 }
-               
+                <td>
+                    @{
+                        var updateModal = Model.GetUpdateModal(model);
+                        <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#@updateModal.Id">Update</button>
+                        @await Html.PartialAsync("~/Views/Shared/Modal.cshtml", updateModal)
+                    }
+                </td>
             </tr>
         }
         </tbody>

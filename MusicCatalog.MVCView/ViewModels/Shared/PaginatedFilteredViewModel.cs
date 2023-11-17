@@ -122,7 +122,8 @@ public abstract class PaginatedFilteredViewModel
     }
     
     public abstract ModalViewModel GetModal(Model model, string column);
-
+    public abstract ModalViewModel GetUpdateModal(Model model);
+    // public abstract ModalViewModel GetCreateModal();
     public sealed record ValueType(object Value, string Type);
 
 }

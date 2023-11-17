@@ -26,6 +26,13 @@ public class ArtistsViewModel : PaginatedFilteredViewModel
         };
     }
 
+    public override ModalViewModel GetUpdateModal(Model model)
+    {
+        const string header = "Update artist";
+        var artist = (Artist)model;
+        return new ArtistsUpdateModalViewModel(artist.Id, header, artist);
+    }
+    
     public IEnumerable<ModalViewModel> GetModals()
     {
         const string header = "Songs";

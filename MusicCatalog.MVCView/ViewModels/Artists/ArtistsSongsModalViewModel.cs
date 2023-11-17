@@ -17,7 +17,7 @@ public class ArtistsSongsModalViewModel: ModalViewModel
     public ArtistsSongsModalViewModel(
         int genreId,
         string header, 
-        IEnumerable<Song> songs) : base(header, PartialName, songs)
+        IEnumerable<Song> songs) : base(header, PartialName, songs, true)
     {
         _genreId = genreId;
     }
