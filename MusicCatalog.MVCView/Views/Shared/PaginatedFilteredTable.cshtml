@@ -45,19 +45,19 @@
         }
         </thead>
         <tbody>
-        @foreach (var model in Model.Models)
+        @foreach (var dataModel in Model.Models)
         {
             <tr>
                 @foreach (var column in Model.Columns)
                 {
-                    var valueType = Model.ColumnValues[model.Id][column];
+                    var valueType = Model.ColumnValues[dataModel.Id][column];
 
                     switch (valueType.Type)
                     {
                         case "select":
                             <td>
                                 @{
-                            var modal = Model.GetModal(model, column);
+                            var modal = Model.GetModal(dataModel, column);
                             <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#@modal.Id">View @column details</button>
                             @await Html.PartialAsync("~/Views/Shared/Modal.cshtml", modal)
                                 }
@@ -70,9 +70,18 @@
                 }
                 <td>
                     @{
-                        var updateModal = Model.GetUpdateModal(model);
+                        var updateModal = Model.GetUpdateModal(dataModel);
                         <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#@updateModal.Id">Update</button>
                         @await Html.PartialAsync("~/Views/Shared/Modal.cshtml", updateModal)
+                    }
+                </td>
+                <td>
+                    @{
+                        <a class="btn btn-danger" type="button"
+                                asp-controller="@Model.ControllerName"
+                                asp-action="Delete" asp-route-id="@dataModel.Id">
+                            Delete
+                        </a>
                     }
                 </td>
             </tr>
@@ -119,7 +128,7 @@
     
     a.column-header {
         text-decoration: none;
-        color: var(--bs-light);
+        /*color: var(--bs-light);*/
     }
     
     .pagination {
