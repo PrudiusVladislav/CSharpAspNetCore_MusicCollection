@@ -15,7 +15,7 @@
     <div>
         @{
             var createModal = Model.GetCreateModal();
-            <button class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#@createModal.Id">Create</button>
+            <button class="btn btn-info add-model-btn" type="button" data-bs-toggle="modal" data-bs-target="#@createModal.Id">Create</button>
             @await Html.PartialAsync("~/Views/Shared/Modal.cshtml", createModal)
         }
     </div>
@@ -135,7 +135,6 @@
     
     a.column-header {
         text-decoration: none;
-        /*color: var(--bs-light);*/
     }
     
     .pagination {

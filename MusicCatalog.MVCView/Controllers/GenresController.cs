@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MusicCatalog.Application.MusicGenres;
 using MusicCatalog.Application.Shared;
 using MusicCatalog.Domain;
@@ -13,7 +14,7 @@ public class GenresController : PaginatedFilteredController<MusicGenre, Paginate
 {
     private readonly IGenreService _genreService;
     
-    public GenresController(IGenreService crudService) : base(crudService)
+    public GenresController(IGenreService crudService, IMemoryCache memoryCache) : base(crudService, memoryCache)
     {
         _genreService = crudService;
     }

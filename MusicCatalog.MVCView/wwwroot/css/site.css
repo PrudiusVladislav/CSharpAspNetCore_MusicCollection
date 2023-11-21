@@ -225,3 +225,10 @@ body {
 .songs-page  .duration-cell {
   font-weight: bold;
 }
+
+.add-model-btn{
+  margin: 25px auto;
+  padding: 10px 50px;
+  font-weight: bolder;
+  color: #ffffff;
+}
