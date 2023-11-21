@@ -11,14 +11,13 @@ using MusicCatalog.MVCView.ViewModels.Shared;
 
 namespace MusicCatalog.MVCView.Controllers.Shared;
 
-public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto, TViewModel> : Controller 
+public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto, TViewModel> : BaseController 
     where TModel : Model
     where TPaginatedFilteredDto : PaginatedFilteredDto
     where TViewModel : PaginatedFilteredViewModel, new()
 {
     //private static readonly  IDictionary<int, PaginatedCollection<TModel>> CachedModels = new Dictionary<int, PaginatedCollection<TModel>>();
     private readonly IMemoryCache _memoryCache;
-    private static DateTime _timeOfLastDbUpdate = DateTime.Now;
     private readonly ICrudService<TModel> _crudService;
     
     protected PaginatedFilteredController(ICrudService<TModel> crudService, IMemoryCache memoryCache)
@@ -43,11 +42,10 @@ public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto,
         var sortOrder = dto.SortDirection.Equals("Descending") ? SortOrder.Desc : SortOrder.Asc;
 
         var domainDto = new FilterPaginationDto(dto.SearchTerm, dto.Page, dto.PageSize, dto.SortColumn, sortOrder);
-        var compositeKey = domainDto.GetCompositeKey(_timeOfLastDbUpdate);
+        var compositeKey = domainDto.GetCompositeKey(TimeOfLastDbUpdate);
         if (!_memoryCache.TryGetValue(compositeKey, out PaginatedCollection<TModel>? models))
         {
             models = await _crudService.GetAllAsync(domainDto, cancellationToken);
-            //await Task.Delay(3000, cancellationToken);
             _memoryCache.Set(compositeKey, models, new MemoryCacheEntryOptions()
             {
                 SlidingExpiration = TimeSpan.FromSeconds(30),
@@ -72,7 +70,7 @@ public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto,
     public virtual async Task<IActionResult> Create(TModel model, CancellationToken cancellationToken)
     {
         await _crudService.CreateAsync(model, cancellationToken);
-        _timeOfLastDbUpdate = DateTime.Now;
+        TimeOfLastDbUpdate = DateTime.Now;
         return RedirectToAction(nameof(Index));
     }
     
@@ -80,14 +78,14 @@ public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto,
     public virtual async Task<IActionResult> Edit(TModel model, CancellationToken cancellationToken)
     {
         await _crudService.UpdateAsync(model, cancellationToken);
-        _timeOfLastDbUpdate = DateTime.Now;
+        TimeOfLastDbUpdate = DateTime.Now;
         return RedirectToAction(nameof(Index));
     }
     
     public virtual async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
         await _crudService.DeleteAsync(id, cancellationToken);
-        _timeOfLastDbUpdate = DateTime.Now;
+        TimeOfLastDbUpdate = DateTime.Now;
         return RedirectToAction(nameof(Index));
     }
 
