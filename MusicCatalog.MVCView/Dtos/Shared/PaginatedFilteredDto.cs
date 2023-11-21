@@ -12,4 +12,5 @@ public class PaginatedFilteredDto
     public string SortDirection { get; set; } = string.Empty;
     public int Page { get; set; } = FirstPage;
     public int PageSize { get; set; } = DefaultPageSize;
+    public bool IsSortChanged { get; set; } = false;
 }

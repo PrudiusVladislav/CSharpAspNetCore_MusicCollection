@@ -33,11 +33,11 @@ public class GenresViewModel: PaginatedFilteredViewModel
         return new GenreUpdateModalViewModel(genre.Id, header, genre);
     }
     
-    // public override ModalViewModel GetCreateModal()
-    // {
-    //     const string header = "Update genre";
-    //     return new GenreCreateModalViewModel(genre.Id, header, genre);
-    // }
+    public override ModalViewModel GetCreateModal()
+    {
+        const string header = "Create new genre";
+        return new GenresCreateModalViewModel(header, new MusicGenre(){Name = string.Empty});
+    }
     
     public IEnumerable<ModalViewModel> GetModals()
     {

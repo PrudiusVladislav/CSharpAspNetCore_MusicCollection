@@ -12,6 +12,13 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
+    <div>
+        @{
+            var createModal = Model.GetCreateModal();
+            <button class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#@createModal.Id">Create</button>
+            @await Html.PartialAsync("~/Views/Shared/Modal.cshtml", createModal)
+        }
+    </div>
     <table class="table">
         <thead>
         @foreach (var column in Model.Columns)
@@ -20,14 +27,14 @@
                 <a class="column-header"
                    asp-controller="@Model.ControllerName"
                    asp-action="@Model.ActionName"
-                   asp-all-route-data="@Model.GetRouteValues(sortColumn: column, page: 1)">
+                   asp-all-route-data="@Model.GetRouteValues(sortColumn: column, page: 1, isSortChanged: true)">
                     @column
                 </a>
 
                 @{
                     var sorting = Model.Sorting;
                     var isSortingColumn = sorting.Contains(column);
-
+                    
                     if (isSortingColumn && sorting.EndsWith("ascending", StringComparison.OrdinalIgnoreCase))
                     {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">

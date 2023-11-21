@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor.Infrastructure;
 using MusicCatalog.Application.Shared;
 using MusicCatalog.Domain;
 using MusicCatalog.Domain.Models;
@@ -13,6 +14,7 @@ public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto,
     where TPaginatedFilteredDto : PaginatedFilteredDto
     where TViewModel : PaginatedFilteredViewModel, new()
 {
+    private static readonly  IDictionary<int, PaginatedCollection<TModel>> CachedModels = new Dictionary<int, PaginatedCollection<TModel>>();
     private readonly ICrudService<TModel> _crudService;
     
     protected PaginatedFilteredController(ICrudService<TModel> crudService)
@@ -22,7 +24,10 @@ public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto,
     
     public virtual IActionResult Index(TPaginatedFilteredDto dto)
     {
-        (dto.SortColumn, dto.SortDirection) = PaginatedFilteredViewModel.GetSortColumnAndDirection(dto.Sorting, dto.SortColumn);
+        (dto.SortColumn, dto.SortDirection) = PaginatedFilteredViewModel.GetSortColumnAndDirection(dto.Sorting, dto.SortColumn, dto.IsSortChanged);
+        
+        if (dto.IsSortChanged || !string.IsNullOrWhiteSpace(dto.SearchTerm))
+            CachedModels.Clear();
         
         if (dto.Page <= 0)
             dto.Page = 1;
@@ -36,7 +41,13 @@ public abstract class PaginatedFilteredController<TModel, TPaginatedFilteredDto,
         var sortOrder = dto.SortDirection.Equals("Descending") ? SortOrder.Desc : SortOrder.Asc;
 
         var domainDto = new FilterPaginationDto(dto.SearchTerm, dto.Page, dto.PageSize, dto.SortColumn, sortOrder);
-        var models = await _crudService.GetAllAsync(domainDto, cancellationToken);
+        if (!CachedModels.TryGetValue(dto.Page, out var models))
+        {
+            models = await _crudService.GetAllAsync(domainDto, cancellationToken);
+            
+            CachedModels.Add(dto.Page, models);
+        }
+
         var viewModel = new TViewModel()
         {
             Total = models.Total,

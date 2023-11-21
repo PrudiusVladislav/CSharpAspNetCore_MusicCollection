@@ -71,7 +71,8 @@ public abstract class PaginatedFilteredViewModel
         string? sortColumn = null,
         string? sorting = null,
         int? page = null,
-        int? pageSize = null)
+        int? pageSize = null,
+        bool isSortChanged = false)
     {
         return new Dictionary<string, string>
         {
@@ -80,24 +81,27 @@ public abstract class PaginatedFilteredViewModel
             { "sortColumn", sortColumn ?? SortColumn },
             { "pageSize", pageSize?.ToString() ?? PageSize.ToString() },
             { "page", page?.ToString() ?? CurrentPage.ToString() },
+            { "isSortChanged", isSortChanged.ToString() }
         };
     }
     
-    public static (string, string) GetSortColumnAndDirection(string sorting, string sortColumn)
+    public static (string, string) GetSortColumnAndDirection(string sorting, string sortColumn, bool isSortChanged)
     {
         if (string.IsNullOrWhiteSpace(sorting) || string.IsNullOrWhiteSpace(sortColumn))
             return ("Id", "Descending");
-        
+
+        if (!isSortChanged)
+        {
+            var parts = sorting.Split('_');
+            return (parts[0], parts[1]);
+        }
+
         if (!sorting.Contains(sortColumn))
             return (sortColumn, "Ascending");
         
         if (sorting.EndsWith("Ascending"))
             return (sortColumn, "Descending");
         
-        if (sorting.EndsWith("Descending"))
-            return ("Id", "Descending");
-        
-        // Never happened but...
         return ("Id", "Descending");
     }
     
@@ -117,13 +121,16 @@ public abstract class PaginatedFilteredViewModel
             var enumerable = value as IEnumerable<Model> ?? Enumerable.Empty<Model>();
             return new ValueType(enumerable, "select");
         }
-
+        
+        if(typeof(DateTime).IsAssignableFrom(property.PropertyType))
+            return new ValueType(((DateTime)(value ?? string.Empty)).ToShortDateString(), "date");
+        
         return new ValueType(value?.ToString() ?? string.Empty, "text");
     }
     
     public abstract ModalViewModel GetModal(Model model, string column);
     public abstract ModalViewModel GetUpdateModal(Model model);
-    // public abstract ModalViewModel GetCreateModal();
+    public abstract ModalViewModel GetCreateModal();
     public sealed record ValueType(object Value, string Type);
 
 }

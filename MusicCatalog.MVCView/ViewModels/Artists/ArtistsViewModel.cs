@@ -32,7 +32,13 @@ public class ArtistsViewModel : PaginatedFilteredViewModel
         var artist = (Artist)model;
         return new ArtistsUpdateModalViewModel(artist.Id, header, artist);
     }
-    
+
+    public override ModalViewModel GetCreateModal()
+    {
+        const string header = "Create new genre";
+        return new ArtistsCreateModalViewModel(header, new Artist(){FirstName = string.Empty});
+    }
+
     public IEnumerable<ModalViewModel> GetModals()
     {
         const string header = "Songs";

@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.MVCView", "Mus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.EfCorePersistence", "MusicCatalog.EfCorePersistence\MusicCatalog.EfCorePersistence.csproj", "{D23BBA0B-8F99-42A0-A405-261C61A4E980}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.WebAPI", "MusicCatalog.WebAPI\MusicCatalog.WebAPI.csproj", "{CAD03D9F-C949-40EB-9F39-FB83E89A20A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{D23BBA0B-8F99-42A0-A405-261C61A4E980}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D23BBA0B-8F99-42A0-A405-261C61A4E980}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D23BBA0B-8F99-42A0-A405-261C61A4E980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD03D9F-C949-40EB-9F39-FB83E89A20A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD03D9F-C949-40EB-9F39-FB83E89A20A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD03D9F-C949-40EB-9F39-FB83E89A20A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD03D9F-C949-40EB-9F39-FB83E89A20A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
