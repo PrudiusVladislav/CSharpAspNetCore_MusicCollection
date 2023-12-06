@@ -18,7 +18,8 @@ public class SongsIndex : PageModel
 
     public async Task OnGetAsync(CancellationToken cancellationToken)
     {
-        Songs = await _songService.GetAllAsync(new Domain.FilterPaginationDto(string.Empty), cancellationToken);
+        var songs = await _songService.GetAllAsync(new Domain.FilterPaginationDto(string.Empty), cancellationToken);
+        Songs = songs.Models;
     }
 
     public async Task<IActionResult> OnPostDeleteAsync(int id, CancellationToken cancellationToken)

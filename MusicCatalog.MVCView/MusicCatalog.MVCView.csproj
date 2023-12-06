@@ -6,19 +6,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-
-
     <ItemGroup>
       <ProjectReference Include="..\MusicCatalog.Application\MusicCatalog.Application.csproj" />
       <ProjectReference Include="..\MusicCatalog.Domain\MusicCatalog.Domain.csproj" />
       <ProjectReference Include="..\MusicCatalog.EfCorePersistence\MusicCatalog.EfCorePersistence.csproj" />
       <ProjectReference Include="..\MusicCatalog.MemoryPersistence\MusicCatalog.MemoryPersistence.csproj" />
     </ItemGroup>
-
-
-
-
-
 
 
     <ItemGroup>
@@ -28,7 +21,6 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
     </ItemGroup>
-
-
+    
 
 </Project>

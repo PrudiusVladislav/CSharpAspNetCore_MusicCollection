@@ -39,19 +39,24 @@ public abstract class CrudRepository<TModel> : ICrudRepository<TModel> where TMo
         }
     }
 
-    public virtual Task<IReadOnlyCollection<TModel>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
+    public virtual Task<PaginatedCollection<TModel>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
     {
         var skip = (dto.PageNumber - 1) * dto.PageSize;
         var take = dto.PageSize;
 
-        var models = Models.Values
+        var filteredModels = Models.Values
             .Filter(dto.SearchTerm)
+            .ToList();
+		
+        var models = filteredModels
             .SortBy(dto.SortColumn, dto.SortOrder)
             .Skip(skip)
             .Take(take)
             .ToArray();
 
-        return Task.FromResult<IReadOnlyCollection<TModel>>(models);
+        var totalItems = filteredModels.Count;
+        return Task.FromResult(new PaginatedCollection<TModel>(models, totalItems));
+
     }
 
     public virtual Task<TModel?> GetAsync(int id, CancellationToken cancellationToken)

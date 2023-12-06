@@ -22,5 +22,6 @@ public static class DependencyInjectionExtension
         services.AddTransient<IGenreService, GenreService>();
         services.AddTransient<IArtistService, ArtistService>();
         services.AddTransient<ISongService, SongService>();
+        services.AddMemoryCache();
     }
 }

@@ -20,7 +20,8 @@ public class GenresIndex : PageModel
 
     public async Task OnGetAsync(CancellationToken cancellationToken)
     {
-        Genres = await _genreService.GetAllAsync(new Domain.FilterPaginationDto(string.Empty, _pageNumber), cancellationToken);
+        var genres = await _genreService.GetAllAsync(new Domain.FilterPaginationDto(string.Empty, _pageNumber), cancellationToken);
+        Genres = genres.Models;
     }
 
     public async Task<IActionResult> OnPostDeleteAsync(int id, CancellationToken cancellationToken)
