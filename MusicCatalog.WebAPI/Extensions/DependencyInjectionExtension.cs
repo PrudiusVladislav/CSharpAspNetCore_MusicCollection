@@ -4,9 +4,8 @@ using MusicCatalog.Application.MusicGenres;
 using MusicCatalog.Application.Songs;
 using MusicCatalog.EfCorePersistence.Data;
 using MusicCatalog.EfCorePersistence.Repositories;
-//using MusicCatalog.MemoryPersistence.Repositories;
 
-namespace MusicCatalog.MVCView.Extensions;
+namespace MusicCatalog.WebAPI.Extensions;
 
 public static class DependencyInjectionExtension
 {
@@ -23,6 +22,5 @@ public static class DependencyInjectionExtension
         services.AddTransient<IGenreService, GenreService>();
         services.AddTransient<IArtistService, ArtistService>();
         services.AddTransient<ISongService, SongService>();
-        services.AddMemoryCache();
     }
 }

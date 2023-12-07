@@ -53,6 +53,8 @@ public abstract class CrudRepository<TModel> : ICrudRepository<TModel> where TMo
         var take = dto.PageSize;
 
         var query = DbContext.Set<TModel>().AsQueryable();
+
+        query = Include(query);
         
         if (!string.IsNullOrWhiteSpace(dto.SearchTerm))
             query = Filter(query, dto.SearchTerm);

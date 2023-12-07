@@ -39,11 +39,12 @@ public abstract class CrudRepository<TModel> : ICrudRepository<TModel> where TMo
         }
     }
 
-    public virtual Task<PaginatedCollection<TModel>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
+    public virtual async Task<PaginatedCollection<TModel>> GetAllAsync(FilterPaginationDto dto, CancellationToken cancellationToken)
     {
+        
         var skip = (dto.PageNumber - 1) * dto.PageSize;
         var take = dto.PageSize;
-
+        
         var filteredModels = Models.Values
             .Filter(dto.SearchTerm)
             .ToList();
@@ -53,15 +54,20 @@ public abstract class CrudRepository<TModel> : ICrudRepository<TModel> where TMo
             .Skip(skip)
             .Take(take)
             .ToArray();
-
         var totalItems = filteredModels.Count;
-        return Task.FromResult(new PaginatedCollection<TModel>(models, totalItems));
-
+        //return RaiseException();
+        return await Task.FromResult(new PaginatedCollection<TModel>(models, totalItems));
     }
 
-    public virtual Task<TModel?> GetAsync(int id, CancellationToken cancellationToken)
+    // private async Task<PaginatedCollection<TModel>> RaiseException()
+    // {
+    //     throw new Exception("Testing async method return types breaking stack trace");
+    //     await Task.Delay(1);
+    // }
+    
+    public virtual async Task<TModel?> GetAsync(int id, CancellationToken cancellationToken)
     {
-        return Task.FromResult(Models.TryGetValue(id, out var model) ? model : null);
+        return await Task.FromResult(Models.TryGetValue(id, out var model) ? model : null);
     }
 
     public virtual Task UpdateAsync(TModel model, CancellationToken cancellationToken)
@@ -72,5 +78,7 @@ public abstract class CrudRepository<TModel> : ICrudRepository<TModel> where TMo
         return Task.CompletedTask;
     }
 
+    
+    
     protected abstract void UpdateModel(TModel oldModel, TModel newModel);
 }
