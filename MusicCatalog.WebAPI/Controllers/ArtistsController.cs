@@ -3,10 +3,12 @@ using MusicCatalog.Application.Artists;
 using MusicCatalog.Domain;
 using MusicCatalog.Domain.Models;
 using MusicCatalog.WebAPI.Dtos.Artists;
+using MusicCatalog.WebAPI.Filters.Authentication;
 using MusicCatalog.WebAPI.Filters.Validation;
 
 namespace MusicCatalog.WebAPI.Controllers;
 
+[ServiceFilter(typeof(ApiKeyAuthFilter))]
 public class ArtistsController : Controller
 {
     private readonly IArtistService _artistService;
